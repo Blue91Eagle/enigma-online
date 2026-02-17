@@ -66,7 +66,7 @@ def api_decrypt():
     except Exception as e:
         return jsonify({
             "ok": False,
-            "error": str(e)
+            "error": "Internal service error"
         }), 400
 
 
