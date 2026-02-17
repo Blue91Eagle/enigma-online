@@ -1,87 +1,120 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Enigma Online (Educational)</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enigma Online (Educational)</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/static/style.css" />
-</head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+  </head>
 
-<body>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
 
-<div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">E</div>
 
-  <h1>Enigma Online (Educational)</h1>
-  <p class="muted">Use the same settings to decrypt.</p>
-
-  <div class="grid">
-
-    <!-- SETTINGS -->
-    <div class="card">
-
-      <h2>Settings</h2>
-
-      <label>Key (A-Z)</label>
-      <input id="key" value="SECRET" />
-
-      <div class="row">
-
-        <div>
-          <label>Rotor 1</label>
-          <input id="rotor1" type="number" value="3" />
+        <div class="brand-text">
+          <h1>Enigma Online</h1>
+          <p class="subtitle">Educational Enigma-style cipher • Flask + JS</p>
         </div>
-
-        <div>
-          <label>Rotor 2</label>
-          <input id="rotor2" type="number" value="7" />
-        </div>
-
-        <div>
-          <label>Rotor 3</label>
-          <input id="rotor3" type="number" value="11" />
-        </div>
-
       </div>
 
-      <label>Start positions (3 letters)</label>
-      <input id="start_positions" value="AAA" />
-
-      <label>Plugboard pairs (example: AZ BY CX)</label>
-      <input id="plugboard" placeholder="AZ BY CX" />
-
-    </div>
-
-
-    <!-- MESSAGE -->
-    <div class="card">
-
-      <h2>Message</h2>
-
-      <label>Input</label>
-      <textarea id="text" rows="7">HELLO ENIGMA</textarea>
-
-      <div class="buttons">
-        <button id="btnEncrypt">Encrypt</button>
-        <button id="btnDecrypt" class="secondary">Decrypt</button>
-        <button id="btnSwap" class="ghost">Swap</button>
+      <div class="top-actions">
+        <button class="btn ghost" id="themeBtn" type="button" title="Toggle theme">🌙</button>
+        <a
+          class="btn ghost"
+          href="https://github.com/Blue91Eagle/enigma-online"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub
+        </a>
       </div>
+    </header>
 
-      <label>Output</label>
-      <textarea id="result" rows="7" readonly></textarea>
+    <main class="container">
+      <section class="card">
+        <div class="card-head">
+          <h2>Settings</h2>
+          <p>Choose your key & rotors, then encrypt/decrypt.</p>
+        </div>
 
-      <div id="status" class="status"></div>
+        <div class="grid">
+          <div class="field">
+            <label for="key">Key</label>
+            <input id="key" type="text" placeholder="e.g. BLUEEAGLE" autocomplete="off" />
+            <small class="hint">Letters only is best (A-Z). Spaces will be kept.</small>
+          </div>
 
-    </div>
+          <div class="field">
+            <label for="rotor1">Rotor 1</label>
+            <input id="rotor1" type="number" min="0" max="25" value="3" />
+          </div>
 
-  </div>
+          <div class="field">
+            <label for="rotor2">Rotor 2</label>
+            <input id="rotor2" type="number" min="0" max="25" value="7" />
+          </div>
 
-</div>
+          <div class="field">
+            <label for="rotor3">Rotor 3</label>
+            <input id="rotor3" type="number" min="0" max="25" value="11" />
+          </div>
 
+          <div class="field">
+            <label for="start_positions">Start positions</label>
+            <input id="start_positions" type="text" placeholder="e.g. 0,0,0" autocomplete="off" />
+          </div>
 
-<!-- JAVASCRIPT -->
-<script src="/static/app.js"></script>
+          <div class="field">
+            <label for="plugboard">Plugboard</label>
+            <input id="plugboard" type="text" placeholder="e.g. AB CD EF" autocomplete="off" />
+            <small class="hint">Pairs like “AB CD EF”. Optional.</small>
+          </div>
+        </div>
+      </section>
 
-</body>
+      <section class="card">
+        <div class="card-head">
+          <h2>Message</h2>
+          <p>Write text and choose an action.</p>
+        </div>
+
+        <div class="field">
+          <label for="text">Input</label>
+          <textarea id="text" rows="6" placeholder="Type your message..."></textarea>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="encryptBtn" type="button">Encrypt</button>
+          <button class="btn" id="decryptBtn" type="button">Decrypt</button>
+          <button class="btn ghost" id="clearBtn" type="button">Clear</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label for="output">Output</label>
+
+          <div class="output-wrap">
+            <textarea id="output" rows="6" readonly placeholder="Result will appear here..."></textarea>
+            <button class="btn tiny" id="copyBtn" type="button">Copy</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Made by <b>Blue91Eagle</b> • Deployed on Render</span>
+        <span class="dot">•</span>
+        <span class="muted">Tip: Free instance may sleep; first load can take ~30–60s.</span>
+      </footer>
+    </main>
+
+    <div class="toast" id="toast" aria-live="polite"></div>
+  </body>
 </html>
