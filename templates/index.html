@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Enigma Online (Educational)</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <h1>Enigma Online (Educational)</h1>
+  <p class="muted">Use the same settings to decrypt.</p>
+
+  <div class="grid">
+
+    <!-- SETTINGS -->
+    <div class="card">
+
+      <h2>Settings</h2>
+
+      <label>Key (A-Z)</label>
+      <input id="key" value="SECRET" />
+
+      <div class="row">
+
+        <div>
+          <label>Rotor 1</label>
+          <input id="rotor1" type="number" value="3" />
+        </div>
+
+        <div>
+          <label>Rotor 2</label>
+          <input id="rotor2" type="number" value="7" />
+        </div>
+
+        <div>
+          <label>Rotor 3</label>
+          <input id="rotor3" type="number" value="11" />
+        </div>
+
+      </div>
+
+      <label>Start positions (3 letters)</label>
+      <input id="start_positions" value="AAA" />
+
+      <label>Plugboard pairs (example: AZ BY CX)</label>
+      <input id="plugboard" placeholder="AZ BY CX" />
+
+    </div>
+
+
+    <!-- MESSAGE -->
+    <div class="card">
+
+      <h2>Message</h2>
+
+      <label>Input</label>
+      <textarea id="text" rows="7">HELLO ENIGMA</textarea>
+
+      <div class="buttons">
+        <button id="btnEncrypt">Encrypt</button>
+        <button id="btnDecrypt" class="secondary">Decrypt</button>
+        <button id="btnSwap" class="ghost">Swap</button>
+      </div>
+
+      <label>Output</label>
+      <textarea id="result" rows="7" readonly></textarea>
+
+      <div id="status" class="status"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="/static/app.js"></script>
+
+</body>
+</html>
